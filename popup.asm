@@ -1,4 +1,4 @@
-	TITLE	HiFR13ND
+	TITLE	C:\Users\R\Desktop\HiFR13ND\popup.obj
 	.686P
 	.XMM
 ;	include listing.inc
@@ -8,11 +8,29 @@ assume fs:nothing
 ;INCLUDELIB LIBCMT
 ;INCLUDELIB OLDNAMES
 
+CONST	SEGMENT
+$SG90235 DB	'k', 00H, 'e', 00H, 'r', 00H, 'n', 00H, 'e', 00H, 'l', 00H
+	DB	'3', 00H, '2', 00H, '.', 00H, 'd', 00H, 'l', 00H, 'l', 00H, 00H
+	DB	00H
+	ORG $+2
+$SG90237 DB	'LoadLibraryA', 00H
+	ORG $+3
+$SG90239 DB	'GetProcAddress', 00H
+	ORG $+1
+$SG90241 DB	'user32.dll', 00H
+	ORG $+1
+$SG90242 DB	'MessageBoxW', 00H
+$SG90244 DB	'H', 00H, 'e', 00H, 'l', 00H, 'l', 00H, 'o', 00H, ' ', 00H
+	DB	'F', 00H, 'R', 00H, '1', 00H, '3', 00H, 'N', 00H, 'D', 00H, 'S'
+	DB	00H, 00H, 00H
+$SG90245 DB	'R', 00H, 'y', 00H, 'a', 00H, 'n', 00H, ' ', 00H, 'W', 00H
+	DB	'a', 00H, 's', 00H, ' ', 00H, 'H', 00H, 'e', 00H, 'r', 00H, 'e'
+	DB	00H, 00H, 00H
+CONST	ENDS
 PUBLIC	?get_module_by_name@@YAPAXPA_W@Z		; get_module_by_name
 PUBLIC	?get_func_by_name@@YAPAXPAXPAD@Z		; get_func_by_name
 PUBLIC	_main
 ; Function compile flags: /Odtp
-assume fs:nothing
 _TEXT	SEGMENT
 __GetProcAddress$ = -28					; size = 4
 _u32_dll$ = -24						; size = 4
@@ -28,14 +46,7 @@ _main	PROC
 	mov	ebp, esp
 	sub	esp, 28					; 0000001cH
 ; Line 6
-	CALL after_$SG90235
-$SG90235 DB	'k', 00H, 'e', 00H, 'r', 00H, 'n', 00H, 'e', 00H, 'l', 00H
-	DB	'3', 00H, '2', 00H, '.', 00H, 'd', 00H, 'l', 00H, 'l', 00H, 00H
-	DB	00H
-	ORG $+2
-after_$SG90235:
-
-; 	push	OFFSET $SG90235
+	push	OFFSET $SG90235
 	call	?get_module_by_name@@YAPAXPA_W@Z	; get_module_by_name
 	add	esp, 4
 	mov	DWORD PTR _base$[ebp], eax
@@ -47,12 +58,7 @@ after_$SG90235:
 	jmp	$LN1@main
 $LN2@main:
 ; Line 11
-	CALL after_$SG90237
-$SG90237 DB	'LoadLibraryA', 00H
-	ORG $+3
-after_$SG90237:
-
-; 	push	OFFSET $SG90237
+	push	OFFSET $SG90237
 	mov	eax, DWORD PTR _base$[ebp]
 	push	eax
 	call	?get_func_by_name@@YAPAXPAXPAD@Z	; get_func_by_name
@@ -63,15 +69,10 @@ after_$SG90237:
 	jne	SHORT $LN3@main
 ; Line 13
 	mov	eax, 2
-	jmp $LN1@main
+	jmp	SHORT $LN1@main
 $LN3@main:
 ; Line 15
-	CALL after_$SG90239
-$SG90239 DB	'GetProcAddress', 00H
-	ORG $+1
-after_$SG90239:
-
-; 	push	OFFSET $SG90239
+	push	OFFSET $SG90239
 	mov	ecx, DWORD PTR _base$[ebp]
 	push	ecx
 	call	?get_func_by_name@@YAPAXPAXPAD@Z	; get_func_by_name
@@ -82,7 +83,7 @@ after_$SG90239:
 	jne	SHORT $LN4@main
 ; Line 17
 	mov	eax, 3
-	jmp $LN1@main
+	jmp	SHORT $LN1@main
 $LN4@main:
 ; Line 19
 	mov	edx, DWORD PTR _load_lib$[ebp]
@@ -91,20 +92,11 @@ $LN4@main:
 	mov	eax, DWORD PTR _get_proc$[ebp]
 	mov	DWORD PTR __GetProcAddress$[ebp], eax
 ; Line 23
-	CALL after_$SG90241
-$SG90241 DB	'user32.dll', 00H
-	ORG $+1
-after_$SG90241:
-
-; 	push	OFFSET $SG90241
+	push	OFFSET $SG90241
 	call	DWORD PTR __LoadLibraryA$[ebp]
 	mov	DWORD PTR _u32_dll$[ebp], eax
 ; Line 29
-	CALL after_$SG90242
-$SG90242 DB	'MessageBoxW', 00H
-after_$SG90242:
-
-; 	push	OFFSET $SG90242
+	push	OFFSET $SG90242
 	mov	ecx, DWORD PTR _u32_dll$[ebp]
 	push	ecx
 	call	DWORD PTR __GetProcAddress$[ebp]
@@ -113,24 +105,12 @@ after_$SG90242:
 	cmp	DWORD PTR __MessageBoxW$[ebp], 0
 	jne	SHORT $LN5@main
 	mov	eax, 4
-	jmp $LN1@main
+	jmp	SHORT $LN1@main
 $LN5@main:
 ; Line 37
 	push	0
-	CALL after_$SG90244
-$SG90244 DB	'H', 00H, 'e', 00H, 'l', 00H, 'l', 00H, 'o', 00H, ' ', 00H
-	DB	'F', 00H, 'R', 00H, '1', 00H, '3', 00H, 'N', 00H, 'D', 00H, 'S'
-	DB	00H, 00H, 00H
-after_$SG90244:
-
-; 	push	OFFSET $SG90244
-	CALL after_$SG90245
-$SG90245 DB	'R', 00H, 'y', 00H, 'a', 00H, 'n', 00H, ' ', 00H, 'W', 00H
-	DB	'a', 00H, 's', 00H, ' ', 00H, 'H', 00H, 'e', 00H, 'r', 00H, 'e'
-	DB	00H, 00H, 00H
-after_$SG90245:
-
-; 	push	OFFSET $SG90245
+	push	OFFSET $SG90244
+	push	OFFSET $SG90245
 	push	0
 	call	DWORD PTR __MessageBoxW$[ebp]
 ; Line 39
@@ -225,7 +205,7 @@ $LN9@get_func_b:
 	mov	DWORD PTR _namesOrdsListRVA$[ebp], edx
 ; Line 124
 	mov	DWORD PTR _i$5[ebp], 0
-	jmp $LN4@get_func_b
+	jmp	SHORT $LN4@get_func_b
 $LN2@get_func_b:
 	mov	eax, DWORD PTR _i$5[ebp]
 	add	eax, 1
@@ -262,7 +242,7 @@ $LN4@get_func_b:
 	mov	DWORD PTR _k$6[ebp], 0
 ; Line 131
 	mov	DWORD PTR _k$6[ebp], 0
-	jmp $LN7@get_func_b
+	jmp	SHORT $LN7@get_func_b
 $LN5@get_func_b:
 	mov	edx, DWORD PTR _k$6[ebp]
 	add	edx, 1
@@ -287,10 +267,10 @@ $LN7@get_func_b:
 	movsx	ecx, BYTE PTR [eax]
 	cmp	edx, ecx
 	je	SHORT $LN10@get_func_b
-	jmp $LN6@get_func_b
+	jmp	SHORT $LN6@get_func_b
 $LN10@get_func_b:
 ; Line 133
-	jmp $LN5@get_func_b
+	jmp	SHORT $LN5@get_func_b
 $LN6@get_func_b:
 ; Line 134
 	mov	edx, DWORD PTR _func_name$[ebp]
@@ -308,7 +288,7 @@ $LN6@get_func_b:
 	mov	ecx, DWORD PTR _module$[ebp]
 	add	ecx, DWORD PTR [eax]
 	mov	eax, ecx
-	jmp $LN1@get_func_b
+	jmp	SHORT $LN1@get_func_b
 $LN11@get_func_b:
 ; Line 138
 	jmp	$LN2@get_func_b
@@ -377,7 +357,7 @@ $LN2@get_module:
 	mov	eax, DWORD PTR _curr_module$[ebp]
 	cmp	DWORD PTR [eax+48], 0
 	jne	SHORT $LN7@get_module
-	jmp $LN2@get_module
+	jmp	SHORT $LN2@get_module
 $LN7@get_module:
 ; Line 84
 	mov	ecx, DWORD PTR _curr_module$[ebp]
@@ -387,7 +367,7 @@ $LN7@get_module:
 	mov	DWORD PTR _i$2[ebp], 0
 ; Line 87
 	mov	DWORD PTR _i$2[ebp], 0
-	jmp $LN6@get_module
+	jmp	SHORT $LN6@get_module
 $LN4@get_module:
 	mov	eax, DWORD PTR _i$2[ebp]
 	add	eax, 1
@@ -425,7 +405,7 @@ $LN6@get_module:
 	mov	WORD PTR [edx+ecx*2], ax
 	mov	cx, WORD PTR tv132[ebp]
 	mov	WORD PTR tv136[ebp], cx
-	jmp $LN12@get_module
+	jmp	SHORT $LN12@get_module
 $LN11@get_module:
 	mov	edx, DWORD PTR _i$2[ebp]
 	mov	eax, DWORD PTR _module_name$[ebp]
@@ -456,7 +436,7 @@ $LN12@get_module:
 	mov	WORD PTR [ecx+eax*2], dx
 	mov	ax, WORD PTR tv151[ebp]
 	mov	WORD PTR tv155[ebp], ax
-	jmp $LN14@get_module
+	jmp	SHORT $LN14@get_module
 $LN13@get_module:
 	mov	ecx, DWORD PTR _i$2[ebp]
 	mov	edx, DWORD PTR _curr_name$1[ebp]
@@ -470,7 +450,7 @@ $LN14@get_module:
 	movzx	eax, WORD PTR _c2$3[ebp]
 	cmp	edx, eax
 	je	SHORT $LN8@get_module
-	jmp $LN5@get_module
+	jmp	SHORT $LN5@get_module
 $LN8@get_module:
 ; Line 92
 	jmp	$LN4@get_module
@@ -489,7 +469,7 @@ $LN5@get_module:
 ; Line 95
 	mov	ecx, DWORD PTR _curr_module$[ebp]
 	mov	eax, DWORD PTR [ecx+24]
-	jmp $LN1@get_module
+	jmp	SHORT $LN1@get_module
 $LN9@get_module:
 ; Line 98
 	mov	edx, DWORD PTR _curr_module$[ebp]

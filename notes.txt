@@ -1,0 +1,24 @@
+cl /c /FA /GS- popup.cpp
+
+clean asm;
+masm_shc.exe popup.asm clean.asm
+
+change jmp SHORT to jmp manually
+
+ml clean.asm /link /entry:main
+
+use PE-Bear to dump .text section 
+
+check shellcode with 
+runshc32.exe "clean.exe[.text]"
+it should run with no errors!
+if error occurs, check asm file for errors..
+
+hexdump -v -e '"\\""x" 1/1 "%02x" ""' 'clean.exe[.text]'
+
+raw shellcode in shellcode32.hex
+
+check shellcode with shellcode test 
+
+inject shellcode into project. ;) 
+
